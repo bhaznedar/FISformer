@@ -93,11 +93,14 @@ dataset/
 Run the scripts from the repository root:
 
 ```bash
-# FISformer on ETTh1 (all four horizons, learning-rate sweep)
+# FISformer on ETTh1 (all four horizons, learning rate of the paper)
 bash ./scripts/FISformer/ETTh1.sh
 
-# A single learning rate with 10 repeated runs (as in Table VIII)
-LRS="0.0003" ITR=10 bash ./scripts/FISformer/ETTh1.sh
+# 10 repeated runs (as in Table VIII)
+ITR=10 bash ./scripts/FISformer/ETTh1.sh
+
+# Learning-rate sweep (as in Fig. 7)
+LRS="0.00008 0.0001 0.0003 0.0005 0.0008 0.001" bash ./scripts/FISformer/ETTh1.sh
 
 # iTransformer baseline with the same backbone settings
 bash ./scripts/iTransformer/ETTh1.sh
@@ -106,7 +109,13 @@ bash ./scripts/iTransformer/ETTh1.sh
 bash ./scripts/FISformer/run_all.sh
 ```
 
-The learning rate is selected from {8e-5, 1e-4, 3e-4, 5e-4, 8e-4, 1e-3} (Sec. IV-B and Fig. 7 of the paper). The scripts run this sweep by default, and the `LRS` environment variable overrides it. Each run appends its MSE/MAE to `result_long_term_forecast.txt`. Metrics are saved under `results/<dataset>/` and checkpoints under `checkpoints/`.
+By default each script uses the learning rate that produced the results reported in the paper:
+
+| Dataset | ETTh1 | ETTh2 | ETTm1 | ETTm2 | ECL | Exchange | Weather | Traffic | Solar | PEMS03 | PEMS04 | PEMS07 | PEMS08 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| LR | 8e-5 | 8e-5 | 1e-4 | 8e-5 | 8e-4 | 3e-4 | 3e-4 | 8e-4 | 5e-4 | 1e-3 | 5e-4 | 8e-4 | 1e-3 |
+
+The `LRS` and `ITR` environment variables override the learning rate(s) and the number of repetitions. Each run appends its MSE/MAE to `result_long_term_forecast.txt`. Metrics are saved under `results/<dataset>/` and checkpoints under `checkpoints/`.
 
 You can also call `run.py` directly:
 
