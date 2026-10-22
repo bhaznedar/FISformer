@@ -1,0 +1,20 @@
+# Datasets are downloaded separately (see README) - several files exceed GitHub's 100 MB limit
+dataset/*
+!dataset/README.md
+
+# Experiment outputs
+checkpoints/
+results/
+test_results/
+result_long_term_forecast.txt
+*.npy
+*.pth
+
+# Python / editors
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+*.egg-info/
